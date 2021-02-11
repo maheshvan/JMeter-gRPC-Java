@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "sample.protbuf";
+option java_outer_classname = "SampleMessageProtos";
+//option objc_class_prefix = "HLW";
+
+package protbuf;
+
+service MessageSender{
+
+    rpc sendMessage (Message) returns (Response) {}
+    }
+
+message Message {
+  string  RealName = 1;
+
+  message Data {
+    int32 id = 1;                                         // 186
+    string name = 2;                                        // actor name
+    string timeInGMT = 3;                                 // "2019-12-19 05:27:40"
+    Comic comic = 4;                                       // comic
+    string ScreenName = 5;                                // "Screen Name"
+
+    enum Comic {
+             Marvel = 0;
+             DC = 1;
+         }
+  }
+
+  message Instance {
+      string instanceId = 1;                       // " Instances "
+      repeated Data data = 2;
+    }
+
+    repeated Instance instances = 2;
+
+}
+
+message Response {
+
+    ReturnCode returnCode = 1;
+    string description = 2;
+
+    enum ReturnCode {
+        OK = 0;
+        ERROR = 1;
+    }
+}
+
